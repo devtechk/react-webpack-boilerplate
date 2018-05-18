@@ -1,6 +1,7 @@
 const { resolve } = require('path');
 
 const webpack = require('webpack');
+const WebpackBar = require('webpackbar');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
@@ -13,7 +14,7 @@ const config = {
     'webpack-dev-server/client?http://localhost:8080',
     'webpack/hot/only-dev-server',
     './main.js',
-    './assets/scss/main.scss',
+    './assets/scss/main.sass',
   ],
 
   output: {
@@ -51,7 +52,7 @@ const config = {
         exclude: /node_modules/,
       },
       {
-        test: /\.scss$/,
+        test: /\.sass$/,
         exclude: /node_modules/,
         use: ['css-hot-loader'].concat(ExtractTextPlugin.extract({
           fallback: 'style-loader',
@@ -132,8 +133,8 @@ const config = {
       },
     ]
   },
-
   plugins: [
+    new WebpackBar(),
     new webpack.LoaderOptionsPlugin({
       test: /\.jsx?$/,
       options: {
